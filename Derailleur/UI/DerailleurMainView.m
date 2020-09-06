@@ -55,7 +55,13 @@
 	[[_cadenceView layer] setCornerRadius:10];
 	[[_cadenceView layer] setBackgroundColor: [[NSColor lightGrey] CGColor]];
 	[_cadenceView setTranslatesAutoresizingMaskIntoConstraints:NO];
-	
+    
+    NSButton *pushButton = [[NSButton alloc] init];
+    [_cadenceView addSubview:pushButton];
+    [pushButton centerHorizontallyInSuperview];
+    
+    [pushButton setTitle:@"Hello World!"];
+    
 	NSTextField *cadenceTitle = [[NSTextField alloc] init];
 	
 	[cadenceTitle setEditable:NO];
