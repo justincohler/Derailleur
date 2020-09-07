@@ -43,6 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSTextField *statusLabel;
 @property (nonatomic, strong) StatusDot *statusDot;
 
+@property (nonatomic, strong) NSStackView *buttonsStack;
+@property (nonatomic, strong) NSButton *startRecordingButton;
+@property (nonatomic, strong) NSButton *pauseRecordingButton;
+@property (nonatomic, strong) NSButton *resumeRecordingButton;
+@property (nonatomic, strong) NSButton *cancelRecordingButton;
+@property (nonatomic, strong) NSButton *finishAndSaveRecordingButton;
+
 @end
 
 NS_ASSUME_NONNULL_END
