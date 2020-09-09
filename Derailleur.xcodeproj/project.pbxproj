@@ -17,6 +17,10 @@
 		B5085FEA24634D4F0041A5DF /* BluetoothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5085FE924634D4F0041A5DF /* BluetoothManager.m */; };
 		B5085FEF24636DE40041A5DF /* StatusDot.m in Sources */ = {isa = PBXBuildFile; fileRef = B5085FEE24636DE40041A5DF /* StatusDot.m */; };
 		B5085FF1246395A40041A5DF /* BikeData.m in Sources */ = {isa = PBXBuildFile; fileRef = B5085FF0246395A40041A5DF /* BikeData.m */; };
+		DE2DE52A25066F770021A8E3 /* TrackPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2DE52925066F770021A8E3 /* TrackPoint.m */; };
+		DEC6FB8425084524008C2672 /* NSData+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB8325084524008C2672 /* NSData+Extensions.m */; };
+		DEC6FB8A25088176008C2672 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB8925088176008C2672 /* NSString+Extensions.m */; };
+		DEC6FB9225090F41008C2672 /* BikeSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB9125090F41008C2672 /* BikeSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +45,14 @@
 		B5085FED24636DE40041A5DF /* StatusDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusDot.h; sourceTree = "<group>"; };
 		B5085FEE24636DE40041A5DF /* StatusDot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatusDot.m; sourceTree = "<group>"; };
 		B5085FF0246395A40041A5DF /* BikeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BikeData.m; sourceTree = "<group>"; };
+		DE2DE52825066C7F0021A8E3 /* TrackPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackPoint.h; sourceTree = "<group>"; };
+		DE2DE52925066F770021A8E3 /* TrackPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackPoint.m; sourceTree = "<group>"; };
+		DEC6FB8325084524008C2672 /* NSData+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Extensions.m"; sourceTree = "<group>"; };
+		DEC6FB86250872D2008C2672 /* NSData+HexRepresentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+HexRepresentation.h"; sourceTree = "<group>"; };
+		DEC6FB88250880FF008C2672 /* NSString+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		DEC6FB8925088176008C2672 /* NSString+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
+		DEC6FB9025090F14008C2672 /* BikeSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BikeSession.h; sourceTree = "<group>"; };
+		DEC6FB9125090F41008C2672 /* BikeSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BikeSession.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +85,7 @@
 		B5085FC9246253510041A5DF /* Derailleur */ = {
 			isa = PBXGroup;
 			children = (
+				DE2DE5242506591E0021A8E3 /* TCX */,
 				B5085FE724634D130041A5DF /* Bluetooth */,
 				B5085FDF246287700041A5DF /* Extensions */,
 				B5085FDB246281700041A5DF /* UI */,
@@ -105,6 +118,10 @@
 				B5085FE4246293A30041A5DF /* NSColor+Extensions.m */,
 				B5085FE02462878D0041A5DF /* NSView+LayoutAdditions.h */,
 				B5085FE124628D870041A5DF /* NSView+Extensions.m */,
+				DEC6FB8325084524008C2672 /* NSData+Extensions.m */,
+				DEC6FB86250872D2008C2672 /* NSData+HexRepresentation.h */,
+				DEC6FB88250880FF008C2672 /* NSString+Extensions.h */,
+				DEC6FB8925088176008C2672 /* NSString+Extensions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -117,8 +134,19 @@
 				B5085FE824634D4F0041A5DF /* BluetoothManager.h */,
 				B5085FE924634D4F0041A5DF /* BluetoothManager.m */,
 				B5085FEC246367750041A5DF /* BluetoothStatuses.h */,
+				DEC6FB9025090F14008C2672 /* BikeSession.h */,
+				DEC6FB9125090F41008C2672 /* BikeSession.m */,
 			);
 			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		DE2DE5242506591E0021A8E3 /* TCX */ = {
+			isa = PBXGroup;
+			children = (
+				DE2DE52825066C7F0021A8E3 /* TrackPoint.h */,
+				DE2DE52925066F770021A8E3 /* TrackPoint.m */,
+			);
+			path = TCX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,9 +218,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE2DE52A25066F770021A8E3 /* TrackPoint.m in Sources */,
+				DEC6FB9225090F41008C2672 /* BikeSession.m in Sources */,
+				DEC6FB8A25088176008C2672 /* NSString+Extensions.m in Sources */,
 				B5085FDE246281910041A5DF /* DerailleurMainView.m in Sources */,
 				B5085FE5246293A30041A5DF /* NSColor+Extensions.m in Sources */,
 				B5085FF1246395A40041A5DF /* BikeData.m in Sources */,
+				DEC6FB8425084524008C2672 /* NSData+Extensions.m in Sources */,
 				B5085FE224628D870041A5DF /* NSView+Extensions.m in Sources */,
 				B5085FD4246253540041A5DF /* main.m in Sources */,
 				B5085FEA24634D4F0041A5DF /* BluetoothManager.m in Sources */,

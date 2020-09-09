@@ -23,16 +23,19 @@
 
 #import "BluetoothManager.h"
 #import "BikeData.h"
+#import "TrackPoint.h"
+#import "NSData+HexRepresentation.h"
+#import "NSString+Extensions.h"
 
 @implementation BluetoothManager
 {
-	/* CoreBluetooth properties */
-	CBCentralManager *_centralManager;
-	CBPeripheral *_connectedPeripheral;
-	CBCharacteristic *_currentCharacteristic;
-
-	/* Connection timer */
-	NSTimer *_pollTimer;
+    /* CoreBluetooth properties */
+    CBCentralManager *_centralManager;
+    CBPeripheral *_connectedPeripheral;
+    CBCharacteristic *_currentCharacteristic;
+    
+    /* Connection timer */
+    NSTimer *_pollTimer;
 }
 
 /* General properties */
@@ -44,228 +47,198 @@ BikeDataframe bikeData;
 
 - (instancetype) init
 {
-	self = [super init];
-	if (self) {
-		_centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-	}
-	return self;
+    self = [super init];
+    if (self) {
+        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+        _bikeSession = [[BikeSession alloc] init];
+    }
+    return self;
 }
 
 - (void)centralManagerDidUpdateState:(nonnull CBCentralManager *)central
 {
-	switch (central.state) {
-		case CBManagerStateUnsupported:
-			[_delegate didUpdateStatus:BLUETOOTH_UNSUPPORTED];
-			break;
-			
-		case CBManagerStateUnauthorized:
-			[_delegate didUpdateStatus:BLUETOOTH_UNAUTHORISED];
-			break;
-			
-		case CBManagerStatePoweredOff:
-			[_delegate didUpdateStatus:BLUETOOTH_POWERED_OFF];
-			break;
-			
-		case CBManagerStatePoweredOn:
-			[self startConnectAttempt];
-			break;
-			
-		default:
-			break;
-	}
+    switch (central.state) {
+        case CBManagerStateUnsupported:
+            [_delegate didUpdateStatus:BLUETOOTH_UNSUPPORTED];
+            break;
+            
+        case CBManagerStateUnauthorized:
+            [_delegate didUpdateStatus:BLUETOOTH_UNAUTHORISED];
+            break;
+            
+        case CBManagerStatePoweredOff:
+            [_delegate didUpdateStatus:BLUETOOTH_POWERED_OFF];
+            break;
+            
+        case CBManagerStatePoweredOn:
+            [self startConnectAttempt];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /* Start to try to connect to Flywheel bikes. Times out after 60 seconds. */
 - (void)startConnectAttempt
 {
-	[_delegate didUpdateStatus:BLUETOOTH_POWERED_ON_SCANNING];
-	[_centralManager scanForPeripheralsWithServices:nil options:nil];
-	
-	_pollTimer = [NSTimer scheduledTimerWithTimeInterval:SCAN_TIMEOUT target:self selector:@selector(didTimeoutWhileScanning) userInfo:nil repeats:NO];
+    [_delegate didUpdateStatus:BLUETOOTH_POWERED_ON_SCANNING];
+    [_centralManager scanForPeripheralsWithServices:nil options:nil];
+    
+    _pollTimer = [NSTimer scheduledTimerWithTimeInterval:SCAN_TIMEOUT target:self selector:@selector(didTimeoutWhileScanning) userInfo:nil repeats:NO];
 }
 
 /* Disconnect from the Flywheel bike, if it is connected */
 - (void)disconnectBike
 {
-	if (_connectedPeripheral != nil)
-	{
-		[_delegate didUpdateStatus:BIKE_DISCONNECT_REQUEST];
-		[_centralManager cancelPeripheralConnection:_connectedPeripheral];
-		_connectedPeripheral = nil;
-	}
+    if (_connectedPeripheral != nil)
+    {
+        [_delegate didUpdateStatus:BIKE_DISCONNECT_REQUEST];
+        [_centralManager cancelPeripheralConnection:_connectedPeripheral];
+        _connectedPeripheral = nil;
+    }
 }
 
 /* Called if and when the Bluetooth scan does not find a Flywheel bike */
 - (void)didTimeoutWhileScanning
 {
-	[_delegate didUpdateStatus:BIKE_UNABLE_TO_DISCOVER];
-	[_pollTimer invalidate];
-	
-	[_centralManager stopScan];
+    [_delegate didUpdateStatus:BIKE_UNABLE_TO_DISCOVER];
+    [_pollTimer invalidate];
+    
+    [_centralManager stopScan];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI
 {
-	NSString *deviceName;
-	if (peripheral.name != NULL) {
-		deviceName = peripheral.name;
-	} else {
-		deviceName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
-	}
-	
-	if ([[deviceName lowercaseString] containsString:@"flywheel"]) {
-		[_pollTimer invalidate];
-		[_centralManager stopScan];
-		
-		_connectedPeripheral = peripheral;
-		_connectedPeripheral.delegate = self;
-		
-		[_centralManager connectPeripheral:_connectedPeripheral options:nil];
-		_pollTimer = [NSTimer scheduledTimerWithTimeInterval:CONNECT_TIMEOUT target:self selector:@selector(didTimeoutWhileConnecting) userInfo:nil repeats:NO];
-		
-		[_delegate didUpdateStatus:BIKE_DISCOVERED];
-	} else {
-		/* Let's log this so we can see what devices were found other than Flywheel bikes... */
-		
-	}
+    NSString *deviceName;
+    if (peripheral.name != NULL) {
+        deviceName = peripheral.name;
+    } else {
+        deviceName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
+    }
+    
+    if ([[deviceName lowercaseString] containsString:@"flywheel"]) {
+        [_pollTimer invalidate];
+        [_centralManager stopScan];
+        
+        _connectedPeripheral = peripheral;
+        _connectedPeripheral.delegate = self;
+        
+        [_centralManager connectPeripheral:_connectedPeripheral options:nil];
+        _pollTimer = [NSTimer scheduledTimerWithTimeInterval:CONNECT_TIMEOUT target:self selector:@selector(didTimeoutWhileConnecting) userInfo:nil repeats:NO];
+        
+        [_delegate didUpdateStatus:BIKE_DISCOVERED];
+    } else {
+        /* Let's log this so we can see what devices were found other than Flywheel bikes... */
+        
+    }
 }
 
 - (void)didTimeoutWhileConnecting
 {
-	[_delegate didUpdateStatus:BIKE_UNABLE_TO_CONNECT];
-	[_pollTimer invalidate];
-	
-	[_centralManager cancelPeripheralConnection:_connectedPeripheral];
+    [_delegate didUpdateStatus:BIKE_UNABLE_TO_CONNECT];
+    [_pollTimer invalidate];
+    
+    [_centralManager cancelPeripheralConnection:_connectedPeripheral];
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-	if (peripheral == _connectedPeripheral) {
-		[_connectedPeripheral discoverServices: @[[CBUUID UUIDWithString:ICG_SERVICE_UUID]]];
-		[_delegate didUpdateStatus:BIKE_CONNECTED];
-		[_pollTimer invalidate];
-	}
+    if (peripheral == _connectedPeripheral) {
+        [_connectedPeripheral discoverServices: @[[CBUUID UUIDWithString:ICG_SERVICE_UUID]]];
+        [_delegate didUpdateStatus:BIKE_CONNECTED];
+        [_pollTimer invalidate];
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-	for (CBService* currentService in peripheral.services)
-	{
-		if ([[currentService.UUID UUIDString] isEqual:ICG_SERVICE_UUID]) {
-			[peripheral discoverCharacteristics:nil forService:currentService];
-			return;
-		}
-	}
+    for (CBService* currentService in peripheral.services)
+    {
+        if ([[currentService.UUID UUIDString] isEqual:ICG_SERVICE_UUID]) {
+            [peripheral discoverCharacteristics:nil forService:currentService];
+            return;
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-	for (CBCharacteristic* characteristic in service.characteristics)
-	{
-		if (characteristic.properties & CBCharacteristicPropertyNotify) {
-			[peripheral setNotifyValue:YES forCharacteristic:characteristic];
-			
-			if ([[characteristic.UUID UUIDString] isEqual:ICG_RX_UUID]) {
-				_currentCharacteristic = characteristic;
-				[_delegate didUpdateStatus:BIKE_CONNECTED_RECEIVING];
-			}
-		}
-	}
+    for (CBCharacteristic* characteristic in service.characteristics)
+    {
+        if (characteristic.properties & CBCharacteristicPropertyNotify) {
+            [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            
+            if ([[characteristic.UUID UUIDString] isEqual:ICG_RX_UUID]) {
+                _currentCharacteristic = characteristic;
+                [_delegate didUpdateStatus:BIKE_CONNECTED_RECEIVING];
+            }
+        }
+    }
 }
 
-void decodeReceivedData(char buffer[], int size)
+TrackPoint * decodeHexData(NSString *data, NSDate *previousTimestamp)
 {
-	for (int i = 0; i < size; ++i) {
-		byte b = buffer[i];
-		
-		switch (rxState) {
-			case WFSYNC_1:
-                if (b == -1) {
-                    flushDataframe(&bikeData);
-                    errorState = NO_ERROR;
-                    rxState = WFLENGTH;
-                } else {
-					errorState = NO_ERROR;
-                    rxState = WFSYNC_1;
-                }
-                break;
-            case WFLENGTH:
-				if (b == 0) {
-                    errorState = MSG_WFSIZE;
-                    rxState = WFSYNC_1;
-                } else {
-                    dataPacketIndex = 0;
-                    dataPacketLength = b;
-                    bikeData.len = b - 2;
-                    rxState = WFID;
-                }
-                break;
-            case WFID:
-                if (b >= 0) {
-                    bikeData.message_id = b;
-                    if (dataPacketLength != 0) {
-                        rxState = DATA;
-                    } else {
-                        rxState = CHECKSUM;
-                    }
-                } else {
-                    errorState = MSG_UNKNOWN_ID;
-                    rxState = WFSYNC_1;
-                }
-                break;
-            case DATA:
-                if (dataPacketLength == 0) {
-                    rxState = CHECKSUM;
-                }
-
-                bikeData.buffer[dataPacketIndex] = b;
-                dataPacketIndex++;
-                dataPacketLength--;
-                break;
-            case CHECKSUM:
-                /* TODO: Implement checksum */
-                rxState = EOF_1;
-                break;
-            case EOF_1:
-                /* End of frame byte is 0x55 */
-                if (b == 0x55) {
-                    errorState = MSG_COMPLETE;
-                    rxState = WFSYNC_1;
-                }
-                break;
-		}
-	}
+    NSRange powerRange;
+    powerRange.location = 8;
+    powerRange.length = 2;
+    
+    NSRange cadenceRange;
+    cadenceRange.location = 24;
+    cadenceRange.length = 2;
+    
+    NSRange speedRange;
+    speedRange.location = 26;
+    speedRange.length = 4;
+    
+    NSRange resistanceRange;
+    resistanceRange.location = 30;
+    resistanceRange.length = 2;
+    
+    NSString *hexPower = [data substringWithRange:powerRange];
+    NSString *hexCadence = [data substringWithRange:cadenceRange];
+    NSString *hexSpeed = [data substringWithRange:speedRange];
+    NSString *hexResistance = [data substringWithRange:resistanceRange];
+    
+    NSNumber *power = [hexPower hexToInt];
+    NSNumber *cadence = [hexCadence hexToInt];
+    NSNumber *speed = [hexSpeed hexToFloat];
+    NSNumber *resistance = [hexResistance hexToInt];
+    
+    NSDate *currentTimestamp = [NSDate date];
+    
+    NSNumber *distance = [NSNumber numberWithInt:0];
+    
+    if (previousTimestamp != nil) {
+        NSTimeInterval delta = [currentTimestamp timeIntervalSinceDate:previousTimestamp];
+        NSLog(@"Delta: %f", delta);
+        double distanceMeters = speed.doubleValue * 1000.0 * delta / 3600.0;
+        distance = [[NSNumber alloc] initWithDouble:distanceMeters];
+    }
+    
+    return [[TrackPoint alloc] initWithTime:currentTimestamp andSpeed:speed andDistance:distance andCadence:cadence andPower:power andResistance:resistance];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-	NSData *receivedData = characteristic.value;
-	decodeReceivedData((char *)receivedData.bytes, (int)receivedData.length);
-	
-	if (errorState == MSG_COMPLETE) {
-		ICGLiveStreamData *parsedData = (ICGLiveStreamData*) bikeData.buffer;
-		
-		if (bikeData.message_id == SEND_ICG_LIVE_STREAM_DATA) {
-			[_delegate didReceiveData:parsedData];
-			return;
-		}
-		
-		if (bikeData.message_id == BRAKE_CALIBRATION_RESET) {
-			[_delegate didUpdateStatus:BIKE_NEEDS_CALIBRATION];
-			return;
-		}
-		
-		if (bikeData.message_id == SEND_ICG_AGGREGATED_STREAM_DATA) {
-			
-		}
-		
-		if (bikeData.message_id == REQUEST_DISCONNECT) {
-			[self disconnectBike];
-			return;
-		}
-		
-		[_delegate didUpdateStatus:BIKE_MESSAGE_UNKNOWN];
-	}
+    NSData *receivedData = characteristic.value;
+    
+    TrackPoint *point;
+    NSString *hexData = [receivedData hexString];
+    if (hexData.length == 40) {
+        point = decodeHexData(hexData, _bikeSession.previousTimestamp);
+        [_bikeSession add:point];
+        NSLog(@"\nPower:\t\t%@ watts\nCadence:\t%@ rpm\nSpeed:\t\t%@ km/h\nTimeStamp:\t%@\nDistance:\t%@ m\nResistance:\t%@%%",
+              point.power,
+              point.cadence,
+              point.speed,
+              point.time,
+              point.distanceMeters,
+              point.resistance
+              );
+        [_delegate didReceiveData:_bikeSession];
+        return;
+    }
 }
 
 @end

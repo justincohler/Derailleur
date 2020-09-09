@@ -25,6 +25,7 @@
 #import "NSColor+DerailleurColours.h"
 #import "NSView+LayoutAdditions.h"
 #import "StatusDot.h"
+#import "TrackPoint.h"
 
 @implementation DerailleurMainView
 
@@ -71,7 +72,7 @@
     [alert addButtonWithTitle:@"Discard"];
     [alert addButtonWithTitle:@"Cancel"];
     [alert setMessageText:@"Alert"];
-    [alert setInformativeText:@"NSWarningAlertStyle \r Are you sure you want to discard this ride?"];
+    [alert setInformativeText:@"Are you sure you want to discard this ride?"];
     [alert beginSheetModalForWindow:[self window] modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
@@ -342,10 +343,16 @@
     }
 }
 
-- (void)didReceiveData:(ICGLiveStreamData *)data
+- (void)didReceiveData:(BikeSession *)bikeSession
 {
-    [_cadenceLabel setStringValue: [NSString stringWithFormat:@"%d", data->cadence]];
-    [_resistanceLabel setStringValue: [NSString stringWithFormat:@"%d%%", data->brake_level]];
+    TrackPoint *latestPoint = [bikeSession latest];
+    NSLog(@"%@", latestPoint);
+    if (latestPoint.cadence != nil) {
+        [_cadenceLabel setStringValue: [latestPoint.cadence stringValue]];
+    }
+    if (latestPoint.resistance != nil) {
+        [_resistanceLabel setStringValue: [latestPoint.resistance stringValue]];
+    }
 }
 
 @end

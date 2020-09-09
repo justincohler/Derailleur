@@ -29,6 +29,7 @@
 
 #import "BikeData.h"
 #import "BluetoothStatuses.h"
+#import "BikeSession.h"
 
 #define SCAN_TIMEOUT		60
 #define CONNECT_TIMEOUT 	60
@@ -38,12 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol BluetoothManagerDelegate <NSObject>
 
 - (void) didUpdateStatus:(int)status;
-- (void) didReceiveData:(ICGLiveStreamData*)data;
+- (void) didReceiveData:(BikeSession *)session;
 
 @end
 
 @interface BluetoothManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
+@property (nonatomic, strong) BikeSession *bikeSession;
 @property (nonatomic, weak) id <BluetoothManagerDelegate> delegate;
 
 - (void) startConnectAttempt;
