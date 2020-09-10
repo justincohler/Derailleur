@@ -18,8 +18,9 @@
 @property (nonatomic, strong) NSNumber *power;
 @property (nonatomic, strong) NSNumber *resistance;
 
-- (id) initWithTime:currentTimestamp andSpeed:speed andDistance:distance andCadence:cadence andPower:power andResistance:resistance;
+- (id) initWithTime:currentTimestamp andSpeed:speed andCadence:cadence andPower:power andResistance:resistance;
 - (id) initWithTime:(NSDate *)time;
+- (NSNumber *) computeDistance:(NSDate *)previousTimestamp;
 
 @end
 

@@ -50,7 +50,6 @@ BikeDataframe bikeData;
     self = [super init];
     if (self) {
         _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-        _bikeSession = [[BikeSession alloc] init];
     }
     return self;
 }
@@ -177,7 +176,7 @@ BikeDataframe bikeData;
     }
 }
 
-TrackPoint * decodeHexData(NSString *data, NSDate *previousTimestamp)
+TrackPoint * decodeHexData(NSString *data)
 {
     NSRange powerRange;
     powerRange.location = 8;
@@ -206,17 +205,8 @@ TrackPoint * decodeHexData(NSString *data, NSDate *previousTimestamp)
     NSNumber *resistance = [hexResistance hexToInt];
     
     NSDate *currentTimestamp = [NSDate date];
-    
-    NSNumber *distance = [NSNumber numberWithInt:0];
-    
-    if (previousTimestamp != nil) {
-        NSTimeInterval delta = [currentTimestamp timeIntervalSinceDate:previousTimestamp];
-        NSLog(@"Delta: %f", delta);
-        double distanceMeters = speed.doubleValue * 1000.0 * delta / 3600.0;
-        distance = [[NSNumber alloc] initWithDouble:distanceMeters];
-    }
-    
-    return [[TrackPoint alloc] initWithTime:currentTimestamp andSpeed:speed andDistance:distance andCadence:cadence andPower:power andResistance:resistance];
+            
+    return [[TrackPoint alloc] initWithTime:currentTimestamp andSpeed:speed andCadence:cadence andPower:power andResistance:resistance];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -226,17 +216,8 @@ TrackPoint * decodeHexData(NSString *data, NSDate *previousTimestamp)
     TrackPoint *point;
     NSString *hexData = [receivedData hexString];
     if (hexData.length == 40) {
-        point = decodeHexData(hexData, _bikeSession.previousTimestamp);
-        [_bikeSession add:point];
-        NSLog(@"\nPower:\t\t%@ watts\nCadence:\t%@ rpm\nSpeed:\t\t%@ km/h\nTimeStamp:\t%@\nDistance:\t%@ m\nResistance:\t%@%%",
-              point.power,
-              point.cadence,
-              point.speed,
-              point.time,
-              point.distanceMeters,
-              point.resistance
-              );
-        [_delegate didReceiveData:_bikeSession];
+        point = decodeHexData(hexData);
+        [_delegate didReceiveData:point];
         return;
     }
 }

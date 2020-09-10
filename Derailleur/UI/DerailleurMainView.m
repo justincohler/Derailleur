@@ -26,6 +26,7 @@
 #import "NSView+LayoutAdditions.h"
 #import "StatusDot.h"
 #import "TrackPoint.h"
+#import "BikeSession.h"
 
 @implementation DerailleurMainView
 
@@ -40,6 +41,8 @@
     if (self) {
         [self setupViews];
         [self setupLayout];
+        self.stravaClient = [[StravaClient alloc] init];
+        self.bikeSession = [[BikeSession alloc] init];
     }
     return self;
 }
@@ -57,6 +60,9 @@
     NSLog(@"Starting recording activity");
     _startRecordingButton.hidden = true;
     _pauseRecordingButton.hidden = false;
+    
+    _bikeSession = [[BikeSession alloc] init];
+    [_bikeSession record];
 }
 
 - (IBAction) handlePauseRecordingEvent : (id) sender {
@@ -65,6 +71,8 @@
     _cancelRecordingButton.hidden = false;
     _resumeRecordingButton.hidden = false;
     _finishAndSaveRecordingButton.hidden = false;
+    
+    [_bikeSession pause];
 }
 
 - (IBAction) handleCancelRecordingEvent : (id) sender {
@@ -74,14 +82,32 @@
     [alert setMessageText:@"Alert"];
     [alert setInformativeText:@"Are you sure you want to discard this ride?"];
     [alert beginSheetModalForWindow:[self window] modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    
+    [_bikeSession reset];
 }
 
 - (IBAction) handleResumeRecordingEvent : (id) sender {
+    NSLog(@"Resuming recording activity");
+    _cancelRecordingButton.hidden = true;
+    _resumeRecordingButton.hidden = true;
+    _finishAndSaveRecordingButton.hidden = true;
+    _pauseRecordingButton.hidden = false;
+
+    [_bikeSession record];
     
 }
 
 - (IBAction) handleFinishAndSaveRecordingEvent : (id) sender {
+    NSLog(@"Saving activity");
+    _cancelRecordingButton.hidden = true;
+    _resumeRecordingButton.hidden = true;
+    _finishAndSaveRecordingButton.hidden = true;
+    _startRecordingButton.hidden = false;
     
+    NSString *fileName = [_bikeSession save];
+
+//    [_stravaClient uploadSession:_bikeSession :fileName];
+    NSLog(@"Saved %@", fileName);
 }
 
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
@@ -343,15 +369,25 @@
     }
 }
 
-- (void)didReceiveData:(BikeSession *)bikeSession
+- (void)didReceiveData:(TrackPoint *)point
 {
-    TrackPoint *latestPoint = [bikeSession latest];
-    NSLog(@"%@", latestPoint);
-    if (latestPoint.cadence != nil) {
-        [_cadenceLabel setStringValue: [latestPoint.cadence stringValue]];
+    if (_bikeSession.status == IN_PROGRESS) {
+        [_bikeSession add:point];
+        NSLog(@"\nPower:\t\t%@ watts\nCadence:\t%@ rpm\nSpeed:\t\t%@ km/h\nTimeStamp:\t%@\nDistance:\t%@ m\nResistance:\t%@%%",
+              point.power,
+              point.cadence,
+              point.speed,
+              point.time,
+              point.distanceMeters,
+              point.resistance
+              );
     }
-    if (latestPoint.resistance != nil) {
-        [_resistanceLabel setStringValue: [latestPoint.resistance stringValue]];
+    
+    if (point.cadence != nil) {
+        [_cadenceLabel setStringValue: [point.cadence stringValue]];
+    }
+    if (point.resistance != nil) {
+        [_resistanceLabel setStringValue: [point.resistance stringValue]];
     }
 }
 

@@ -11,20 +11,28 @@
 
 @implementation TrackPoint
 
-- (id) initWithTime:(NSDate *)time andSpeed:(NSNumber *)speed andDistance:(NSNumber *)distance andCadence:(NSNumber *)cadence andPower:(NSNumber *)power andResistance:(NSNumber *)resistance
+- (id) initWithTime:(NSDate *)time andSpeed:(NSNumber *)speed andCadence:(NSNumber *)cadence andPower:(NSNumber *)power andResistance:(NSNumber *)resistance
 {
     self = [super init];
     if (self) {
         self.time = time;
         self.speed = speed;
-        self.distanceMeters = distance;
         self.cadence = cadence;
         self.power = power;
         self.resistance = resistance;
+        self.distanceMeters = [NSNumber numberWithInt:0];
+
     }
     return self;
 }
 
+- (NSNumber *) computeDistance:(NSDate *)previousTimestamp
+{
+    NSTimeInterval delta = [self.time timeIntervalSinceDate:previousTimestamp];
+    double distance = self.speed.doubleValue * 1000.0 * delta / 3600.0;
+    self.distanceMeters = [[NSNumber alloc] initWithDouble:distance];
+    return self.distanceMeters;
+}
 
 - (id) initWithTime:(NSDate *)time
 {
