@@ -129,17 +129,21 @@
     /* Set up metrics stack view and add subviews */
     _metricsStack = [[NSStackView alloc] init];
     
-    [_metricsStack setOrientation:NSUserInterfaceLayoutOrientationHorizontal];
-    [_metricsStack setAlignment:NSLayoutAttributeCenterY];
+    [_metricsStack setOrientation:NSUserInterfaceLayoutOrientationVertical];
+    [_metricsStack setAlignment:NSLayoutAttributeCenterX];
     [_metricsStack setDistribution:NSStackViewDistributionFillEqually];
     [_metricsStack setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_metricsStack setSpacing:15];
     
     [self setupCadenceView];
     [self setupResistanceView];
+    [self setupSpeedView];
+    [self setupDistanceView];
     
     [_metricsStack addArrangedSubview:_cadenceView];
     [_metricsStack addArrangedSubview:_resistanceView];
+    [_metricsStack addArrangedSubview:_speedView];
+    [_metricsStack addArrangedSubview:_distanceView];
     
     [self addSubview:_metricsStack];
 }
@@ -148,14 +152,14 @@
 {
     /* Set up cadence view and associated subviews */
     _cadenceView = [[NSView alloc] init];
-    
+
     [_cadenceView setWantsLayer:YES];
     [[_cadenceView layer] setCornerRadius:10];
     [[_cadenceView layer] setBackgroundColor: [[NSColor lightGrey] CGColor]];
     [_cadenceView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+
     NSTextField *cadenceTitle = [[NSTextField alloc] init];
-    
+
     [cadenceTitle setEditable:NO];
     [cadenceTitle setBezeled:NO];
     [cadenceTitle setDrawsBackground:NO];
@@ -163,14 +167,14 @@
     [cadenceTitle setAlignment:NSTextAlignmentCenter];
     [cadenceTitle setFont:[NSFont boldSystemFontOfSize:18]];
     [cadenceTitle setStringValue:@"Cadence (RPM)"];
-    
+
     [_cadenceView addSubview:cadenceTitle];
     [cadenceTitle centerHorizontallyInSuperview];
     [cadenceTitle.bottomAnchor constraintEqualToAnchor:_cadenceView.bottomAnchor constant: -20].active = YES;
-    
+
     /* Set up cadence label */
     _cadenceLabel = [[NSTextField alloc] init];
-    
+
     [_cadenceLabel setEditable:NO];
     [_cadenceLabel setBezeled:NO];
     [_cadenceLabel setDrawsBackground:NO];
@@ -178,7 +182,7 @@
     [_cadenceLabel setStringValue:@"0"];
     [_cadenceLabel setAlignment:NSTextAlignmentCenter];
     [_cadenceLabel setFont: [NSFont boldSystemFontOfSize:75]];
-    
+
     [_cadenceView addSubview:_cadenceLabel];
 }
 
@@ -186,14 +190,14 @@
 {
     /* Set up resistance view and associated subviews */
     _resistanceView = [[NSView alloc] init];
-    
+
     [_resistanceView setWantsLayer:YES];
     [[_resistanceView layer] setCornerRadius:10];
     [[_resistanceView layer] setBackgroundColor: [[NSColor lightGrey] CGColor]];
     [_resistanceView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+
     NSTextField *resistanceTitle = [[NSTextField alloc] init];
-    
+
     [resistanceTitle setEditable:NO];
     [resistanceTitle setBezeled:NO];
     [resistanceTitle setDrawsBackground:NO];
@@ -201,14 +205,14 @@
     [resistanceTitle setAlignment:NSTextAlignmentCenter];
     [resistanceTitle setFont:[NSFont boldSystemFontOfSize:18]];
     [resistanceTitle setStringValue:@"Resistance"];
-    
+
     [_resistanceView addSubview:resistanceTitle];
     [resistanceTitle centerHorizontallyInSuperview];
     [resistanceTitle.bottomAnchor constraintEqualToAnchor:_resistanceView.bottomAnchor constant: -20].active = YES;
-    
+
     /* Set up resistance label */
     _resistanceLabel = [[NSTextField alloc] init];
-    
+
     [_resistanceLabel setEditable:NO];
     [_resistanceLabel setBezeled:NO];
     [_resistanceLabel setDrawsBackground:NO];
@@ -216,8 +220,84 @@
     [_resistanceLabel setStringValue:@"0%"];
     [_resistanceLabel setAlignment:NSTextAlignmentCenter];
     [_resistanceLabel setFont: [NSFont boldSystemFontOfSize:75]];
-    
+
     [_resistanceView addSubview:_resistanceLabel];
+}
+
+- (void) setupSpeedView
+{
+    /* Set up resistance view and associated subviews */
+    _speedView = [[NSView alloc] init];
+
+    [_speedView setWantsLayer:YES];
+    [[_speedView layer] setCornerRadius:10];
+    [[_speedView layer] setBackgroundColor: [[NSColor lightGrey] CGColor]];
+    [_speedView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    NSTextField *title = [[NSTextField alloc] init];
+
+    [title setEditable:NO];
+    [title setBezeled:NO];
+    [title setDrawsBackground:NO];
+    [title setTextColor:[[NSColor lightGrey] lightenByPercentage:40]];
+    [title setAlignment:NSTextAlignmentCenter];
+    [title setFont:[NSFont boldSystemFontOfSize:18]];
+    [title setStringValue:@"Speed"];
+
+    [_speedView addSubview:title];
+    [title centerHorizontallyInSuperview];
+    [title.bottomAnchor constraintEqualToAnchor:_speedView.bottomAnchor constant: -20].active = YES;
+
+    /* Set up resistance label */
+    _speedLabel = [[NSTextField alloc] init];
+
+    [_speedLabel setEditable:NO];
+    [_speedLabel setBezeled:NO];
+    [_speedLabel setDrawsBackground:NO];
+    [_speedLabel setTextColor: [NSColor whiteColor]]; // TODO: change the text colour?
+    [_speedLabel setStringValue:@"0"];
+    [_speedLabel setAlignment:NSTextAlignmentCenter];
+    [_speedLabel setFont: [NSFont boldSystemFontOfSize:75]];
+
+    [_speedView addSubview:_speedLabel];
+}
+
+- (void) setupDistanceView
+{
+    /* Set up resistance view and associated subviews */
+    _distanceView = [[NSView alloc] init];
+
+    [_distanceView setWantsLayer:YES];
+    [[_distanceView layer] setCornerRadius:10];
+    [[_distanceView layer] setBackgroundColor: [[NSColor lightGrey] CGColor]];
+    [_distanceView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    NSTextField *title = [[NSTextField alloc] init];
+
+    [title setEditable:NO];
+    [title setBezeled:NO];
+    [title setDrawsBackground:NO];
+    [title setTextColor:[[NSColor lightGrey] lightenByPercentage:40]];
+    [title setAlignment:NSTextAlignmentCenter];
+    [title setFont:[NSFont boldSystemFontOfSize:18]];
+    [title setStringValue:@"Distance"];
+
+    [_distanceView addSubview:title];
+    [title centerHorizontallyInSuperview];
+    [title.bottomAnchor constraintEqualToAnchor:_distanceView.bottomAnchor constant: -20].active = YES;
+
+    /* Set up resistance label */
+    _distanceLabel = [[NSTextField alloc] init];
+
+    [_distanceLabel setEditable:NO];
+    [_distanceLabel setBezeled:NO];
+    [_distanceLabel setDrawsBackground:NO];
+    [_distanceLabel setTextColor: [NSColor whiteColor]]; // TODO: change the text colour?
+    [_distanceLabel setStringValue:@"0"];
+    [_distanceLabel setAlignment:NSTextAlignmentCenter];
+    [_distanceLabel setFont: [NSFont boldSystemFontOfSize:75]];
+
+    [_distanceView addSubview:_distanceLabel];
 }
 
 - (void) setupStatusBar
@@ -280,7 +360,7 @@
     [_resumeRecordingButton setHidden:true];
     
     _finishAndSaveRecordingButton = [[NSButton alloc] init];
-    [_finishAndSaveRecordingButton setTitle:@"Finish and Save"];
+    [_finishAndSaveRecordingButton setTitle:@"Save"];
     [_finishAndSaveRecordingButton setBezelStyle:NSBezelStyleRounded];
     [_finishAndSaveRecordingButton setAction:@selector(handleFinishAndSaveRecordingEvent:)];
     [_finishAndSaveRecordingButton setTarget:self];
@@ -288,7 +368,7 @@
     
     _buttonsStack = [[NSStackView alloc] init];
     
-    [_buttonsStack setOrientation:NSUserInterfaceLayoutOrientationHorizontal];
+    [_buttonsStack setOrientation:NSUserInterfaceLayoutOrientationVertical];
     [_buttonsStack setAlignment:NSLayoutAttributeCenterY];
     [_buttonsStack setDistribution:NSStackViewDistributionFillEqually];
     [_buttonsStack setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -307,6 +387,8 @@
 {
     [_cadenceLabel centerInSuperviewAdjustedVertically:-15];
     [_resistanceLabel centerInSuperviewAdjustedVertically:-15];
+    [_speedLabel centerInSuperviewAdjustedVertically:-15];
+    [_distanceLabel centerInSuperviewAdjustedVertically:-15];
     
     [NSLayoutConstraint activateConstraints:@[
         [_buttonsStack.heightAnchor constraintEqualToConstant:30],
@@ -389,6 +471,16 @@
     if (point.resistance != nil) {
         [_resistanceLabel setStringValue: [point.resistance stringValue]];
     }
+    
+     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+       [numberFormatter setFormat:@"##0.00"];
+    
+    if (point.speed != nil) {
+        NSNumber *mph = [NSNumber numberWithFloat:([point.speed floatValue] * 0.621371)];
+        [_speedLabel setStringValue: [numberFormatter stringFromNumber:mph]];
+    }
+    NSNumber *miles = [NSNumber numberWithFloat:([_bikeSession.distanceMeters floatValue] * 3.28084 / 5280)];
+    [_distanceLabel setStringValue: [numberFormatter stringFromNumber:miles]];
 }
 
 @end

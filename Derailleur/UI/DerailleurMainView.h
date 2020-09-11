@@ -40,6 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSView *resistanceView;
 @property (nonatomic, strong) NSTextField *resistanceLabel;
 
+@property (nonatomic, strong) NSView *speedView;
+@property (nonatomic, strong) NSTextField *speedLabel;
+
+@property (nonatomic, strong) NSView *distanceView;
+@property (nonatomic, strong) NSTextField *distanceLabel;
+
 @property (nonatomic, strong) NSView *recordingView;
 
 @property (nonatomic, strong) NSStackView *metricsStack;
