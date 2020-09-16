@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,7 +22,6 @@
 		DEC6FB8425084524008C2672 /* NSData+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB8325084524008C2672 /* NSData+Extensions.m */; };
 		DEC6FB8A25088176008C2672 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB8925088176008C2672 /* NSString+Extensions.m */; };
 		DEC6FB9225090F41008C2672 /* BikeSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB9125090F41008C2672 /* BikeSession.m */; };
-		DEC6FB962509BB2D008C2672 /* StravaClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB952509BB2D008C2672 /* StravaClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,8 +57,6 @@
 		DEC6FB8925088176008C2672 /* NSString+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 		DEC6FB9025090F14008C2672 /* BikeSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BikeSession.h; sourceTree = "<group>"; };
 		DEC6FB9125090F41008C2672 /* BikeSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BikeSession.m; sourceTree = "<group>"; };
-		DEC6FB942509B9B3008C2672 /* StravaClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StravaClient.h; sourceTree = "<group>"; };
-		DEC6FB952509BB2D008C2672 /* StravaClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StravaClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,8 +169,6 @@
 			children = (
 				DE2DE52825066C7F0021A8E3 /* TrackPoint.h */,
 				DE2DE52925066F770021A8E3 /* TrackPoint.m */,
-				DEC6FB942509B9B3008C2672 /* StravaClient.h */,
-				DEC6FB952509BB2D008C2672 /* StravaClient.m */,
 			);
 			path = TCX;
 			sourceTree = "<group>";
@@ -189,7 +184,6 @@
 				B5085FC3246253510041A5DF /* Sources */,
 				B5085FC4246253510041A5DF /* Frameworks */,
 				B5085FC5246253510041A5DF /* Resources */,
-				8064D95946CAB74DA8B25FB2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,23 +239,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8064D95946CAB74DA8B25FB2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Derailleur/Pods-Derailleur-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Derailleur/Pods-Derailleur-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Derailleur/Pods-Derailleur-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		BA87C2EDAFCF5D57268D73DD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -298,7 +275,6 @@
 				B5085FE5246293A30041A5DF /* NSColor+Extensions.m in Sources */,
 				B5085FF1246395A40041A5DF /* BikeData.m in Sources */,
 				DEC6FB8425084524008C2672 /* NSData+Extensions.m in Sources */,
-				DEC6FB962509BB2D008C2672 /* StravaClient.m in Sources */,
 				B5085FE224628D870041A5DF /* NSView+Extensions.m in Sources */,
 				B5085FD4246253540041A5DF /* main.m in Sources */,
 				B5085FEA24634D4F0041A5DF /* BluetoothManager.m in Sources */,
@@ -436,11 +412,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Derailleur/Derailleur.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 29727F5X96;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Derailleur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -459,11 +435,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Derailleur/Derailleur.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 29727F5X96;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Derailleur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

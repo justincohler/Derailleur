@@ -41,7 +41,6 @@
     if (self) {
         [self setupViews];
         [self setupLayout];
-        self.stravaClient = [[StravaClient alloc] init];
         self.bikeSession = [[BikeSession alloc] init];
     }
     return self;
