@@ -40,18 +40,18 @@
 #define BIKE_NEEDS_CALIBRATION			0x0C
 
 static const char *STATUS_MESSAGES[] = {
-	"Bluetooth is powered off. Power it on in System Preferences to continue.",
-	"Bluetooth powered on. Scanning for Flywheel bikes...",
+	"Bluetooth is powered off.",
+	"Bluetooth powered on. Scanning...",
 	"Bluetooth use is unauthorised. You may lack the required privileges.",
 	"Bluetooth is not supported on this device.",
-	"Flywheel bike discovered. Attempting to connect...",
-	"Could not connect to your Flywheel bike within 60 seconds",
-	"No Flywheel bikes found. Start pedaling to activate the bike's Bluetooth.",
+	"Flywheel bike found. Connecting...",
+	"Could not connect within 60 seconds",
+	"No Flywheel bikes found. Pedal to Activate",
 	"An unknown error has occurred",
 	"Disconnected from your Flywheel bike successfully",
 	"Your bike sent a message that could not be understood",
-	"Connected to your Flywheel bike. Waiting for data",
-	"Connected to your Flywheel bike. Receiving data",
+	"Connected. Waiting for data...",
+	"Connected. Receiving data...",
 	"Your bike needs to be calibrated"
 };
 

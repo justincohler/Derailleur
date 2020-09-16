@@ -24,10 +24,13 @@
 #import <Cocoa/Cocoa.h>
 #import "BluetoothManager.h"
 #import "StatusDot.h"
+#import "BikeSession.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DerailleurMainView : NSView <BluetoothManagerDelegate>
+
+@property (nonatomic, strong) BikeSession *bikeSession;
 
 @property (nonatomic, strong) NSView *cadenceView;
 @property (nonatomic, strong) NSTextField *cadenceLabel;
@@ -35,11 +38,26 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSView *resistanceView;
 @property (nonatomic, strong) NSTextField *resistanceLabel;
 
+@property (nonatomic, strong) NSView *speedView;
+@property (nonatomic, strong) NSTextField *speedLabel;
+
+@property (nonatomic, strong) NSView *distanceView;
+@property (nonatomic, strong) NSTextField *distanceLabel;
+
+@property (nonatomic, strong) NSView *recordingView;
+
 @property (nonatomic, strong) NSStackView *metricsStack;
 
 @property (nonatomic, strong) NSView *statusBar;
 @property (nonatomic, strong) NSTextField *statusLabel;
 @property (nonatomic, strong) StatusDot *statusDot;
+
+@property (nonatomic, strong) NSStackView *buttonsStack;
+@property (nonatomic, strong) NSButton *startRecordingButton;
+@property (nonatomic, strong) NSButton *pauseRecordingButton;
+@property (nonatomic, strong) NSButton *resumeRecordingButton;
+@property (nonatomic, strong) NSButton *cancelRecordingButton;
+@property (nonatomic, strong) NSButton *finishAndSaveRecordingButton;
 
 @end
 

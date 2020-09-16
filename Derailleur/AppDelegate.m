@@ -33,7 +33,7 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	NSSize windowSize = NSMakeSize(500, 300);
+	NSSize windowSize = NSMakeSize(250, 800);
 	NSSize screenSize = NSScreen.mainScreen.frame.size;
 	
 	NSRect windowRect = NSMakeRect(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2, windowSize.width, windowSize.height);

@@ -29,6 +29,7 @@
 
 #import "BikeData.h"
 #import "BluetoothStatuses.h"
+#import "TrackPoint.h"
 
 #define SCAN_TIMEOUT		60
 #define CONNECT_TIMEOUT 	60
@@ -38,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol BluetoothManagerDelegate <NSObject>
 
 - (void) didUpdateStatus:(int)status;
-- (void) didReceiveData:(ICGLiveStreamData*)data;
+- (void) didReceiveData:(TrackPoint *)point;
 
 @end
 

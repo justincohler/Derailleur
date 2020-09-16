@@ -17,9 +17,16 @@
 		B5085FEA24634D4F0041A5DF /* BluetoothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5085FE924634D4F0041A5DF /* BluetoothManager.m */; };
 		B5085FEF24636DE40041A5DF /* StatusDot.m in Sources */ = {isa = PBXBuildFile; fileRef = B5085FEE24636DE40041A5DF /* StatusDot.m */; };
 		B5085FF1246395A40041A5DF /* BikeData.m in Sources */ = {isa = PBXBuildFile; fileRef = B5085FF0246395A40041A5DF /* BikeData.m */; };
+		DE2DE52A25066F770021A8E3 /* TrackPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DE2DE52925066F770021A8E3 /* TrackPoint.m */; };
+		DEACE94F250A5F9B0042EA68 /* Pods_Derailleur.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC70F1CA9A610887BEF60BDA /* Pods_Derailleur.framework */; };
+		DEC6FB8425084524008C2672 /* NSData+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB8325084524008C2672 /* NSData+Extensions.m */; };
+		DEC6FB8A25088176008C2672 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB8925088176008C2672 /* NSString+Extensions.m */; };
+		DEC6FB9225090F41008C2672 /* BikeSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC6FB9125090F41008C2672 /* BikeSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		89495D8D26B15F3B3C22D7FB /* Pods-Derailleur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Derailleur.debug.xcconfig"; path = "Target Support Files/Pods-Derailleur/Pods-Derailleur.debug.xcconfig"; sourceTree = "<group>"; };
+		B267B1CCD5346969C07E7989 /* Pods-Derailleur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Derailleur.release.xcconfig"; path = "Target Support Files/Pods-Derailleur/Pods-Derailleur.release.xcconfig"; sourceTree = "<group>"; };
 		B5085FC7246253510041A5DF /* Derailleur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Derailleur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5085FCA246253510041A5DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B5085FCB246253510041A5DF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -41,6 +48,15 @@
 		B5085FED24636DE40041A5DF /* StatusDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusDot.h; sourceTree = "<group>"; };
 		B5085FEE24636DE40041A5DF /* StatusDot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatusDot.m; sourceTree = "<group>"; };
 		B5085FF0246395A40041A5DF /* BikeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BikeData.m; sourceTree = "<group>"; };
+		CC70F1CA9A610887BEF60BDA /* Pods_Derailleur.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Derailleur.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE2DE52825066C7F0021A8E3 /* TrackPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackPoint.h; sourceTree = "<group>"; };
+		DE2DE52925066F770021A8E3 /* TrackPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackPoint.m; sourceTree = "<group>"; };
+		DEC6FB8325084524008C2672 /* NSData+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Extensions.m"; sourceTree = "<group>"; };
+		DEC6FB86250872D2008C2672 /* NSData+HexRepresentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+HexRepresentation.h"; sourceTree = "<group>"; };
+		DEC6FB88250880FF008C2672 /* NSString+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		DEC6FB8925088176008C2672 /* NSString+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
+		DEC6FB9025090F14008C2672 /* BikeSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BikeSession.h; sourceTree = "<group>"; };
+		DEC6FB9125090F41008C2672 /* BikeSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BikeSession.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,17 +64,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEACE94F250A5F9B0042EA68 /* Pods_Derailleur.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52A2B712B7348973576ED4F0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				89495D8D26B15F3B3C22D7FB /* Pods-Derailleur.debug.xcconfig */,
+				B267B1CCD5346969C07E7989 /* Pods-Derailleur.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		63CF83626AC4DCDB1CC01AB4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC70F1CA9A610887BEF60BDA /* Pods_Derailleur.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B5085FBE246253510041A5DF = {
 			isa = PBXGroup;
 			children = (
 				B5085FC9246253510041A5DF /* Derailleur */,
 				B5085FC8246253510041A5DF /* Products */,
+				52A2B712B7348973576ED4F0 /* Pods */,
+				63CF83626AC4DCDB1CC01AB4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +109,7 @@
 		B5085FC9246253510041A5DF /* Derailleur */ = {
 			isa = PBXGroup;
 			children = (
+				DE2DE5242506591E0021A8E3 /* TCX */,
 				B5085FE724634D130041A5DF /* Bluetooth */,
 				B5085FDF246287700041A5DF /* Extensions */,
 				B5085FDB246281700041A5DF /* UI */,
@@ -105,6 +142,10 @@
 				B5085FE4246293A30041A5DF /* NSColor+Extensions.m */,
 				B5085FE02462878D0041A5DF /* NSView+LayoutAdditions.h */,
 				B5085FE124628D870041A5DF /* NSView+Extensions.m */,
+				DEC6FB8325084524008C2672 /* NSData+Extensions.m */,
+				DEC6FB86250872D2008C2672 /* NSData+HexRepresentation.h */,
+				DEC6FB88250880FF008C2672 /* NSString+Extensions.h */,
+				DEC6FB8925088176008C2672 /* NSString+Extensions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -117,8 +158,19 @@
 				B5085FE824634D4F0041A5DF /* BluetoothManager.h */,
 				B5085FE924634D4F0041A5DF /* BluetoothManager.m */,
 				B5085FEC246367750041A5DF /* BluetoothStatuses.h */,
+				DEC6FB9025090F14008C2672 /* BikeSession.h */,
+				DEC6FB9125090F41008C2672 /* BikeSession.m */,
 			);
 			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		DE2DE5242506591E0021A8E3 /* TCX */ = {
+			isa = PBXGroup;
+			children = (
+				DE2DE52825066C7F0021A8E3 /* TrackPoint.h */,
+				DE2DE52925066F770021A8E3 /* TrackPoint.m */,
+			);
+			path = TCX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +180,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5085FD8246253540041A5DF /* Build configuration list for PBXNativeTarget "Derailleur" */;
 			buildPhases = (
+				BA87C2EDAFCF5D57268D73DD /* [CP] Check Pods Manifest.lock */,
 				B5085FC3246253510041A5DF /* Sources */,
 				B5085FC4246253510041A5DF /* Frameworks */,
 				B5085FC5246253510041A5DF /* Resources */,
@@ -147,7 +200,7 @@
 		B5085FBF246253510041A5DF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1170;
 				ORGANIZATIONNAME = Benwithjamin;
 				TargetAttributes = {
 					B5085FC6246253510041A5DF = {
@@ -185,14 +238,43 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BA87C2EDAFCF5D57268D73DD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Derailleur-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B5085FC3246253510041A5DF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE2DE52A25066F770021A8E3 /* TrackPoint.m in Sources */,
+				DEC6FB9225090F41008C2672 /* BikeSession.m in Sources */,
+				DEC6FB8A25088176008C2672 /* NSString+Extensions.m in Sources */,
 				B5085FDE246281910041A5DF /* DerailleurMainView.m in Sources */,
 				B5085FE5246293A30041A5DF /* NSColor+Extensions.m in Sources */,
 				B5085FF1246395A40041A5DF /* BikeData.m in Sources */,
+				DEC6FB8425084524008C2672 /* NSData+Extensions.m in Sources */,
 				B5085FE224628D870041A5DF /* NSView+Extensions.m in Sources */,
 				B5085FD4246253540041A5DF /* main.m in Sources */,
 				B5085FEA24634D4F0041A5DF /* BluetoothManager.m in Sources */,
@@ -326,13 +408,15 @@
 		};
 		B5085FD9246253540041A5DF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89495D8D26B15F3B3C22D7FB /* Pods-Derailleur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Derailleur/Derailleur.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = BY2JKFEKFA;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Derailleur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -347,13 +431,15 @@
 		};
 		B5085FDA246253540041A5DF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B267B1CCD5346969C07E7989 /* Pods-Derailleur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Derailleur/Derailleur.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = BY2JKFEKFA;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Derailleur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
