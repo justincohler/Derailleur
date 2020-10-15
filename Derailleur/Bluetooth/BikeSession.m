@@ -113,11 +113,17 @@
     
     NSXMLDocument *xmlRequest = [NSXMLDocument documentWithRootElement:root];
     NSLog(@"XML Document\n%@", xmlRequest);
-    NSData *xmlData = [xmlRequest XMLDataWithOptions:NSXMLNodePrettyPrint];\
-    NSString *filePath = [[NSString alloc] initWithFormat: @"%@%@.tcx",
-                          NSTemporaryDirectory(), idString];
-    NSFileManager *m = [NSFileManager defaultManager];
-    [m createFileAtPath:filePath contents:xmlData attributes:nil];
+    NSData *xmlData = [xmlRequest XMLDataWithOptions:NSXMLNodePrettyPrint];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingFormat:@"/%@.tcx", idString];
+    [xmlData writeToFile:filePath atomically:NO];
+    
+//    NSString *filePath = [[NSString alloc] initWithFormat: @"%@%@.tcx",
+//                          NSTemporaryDirectory(), idString];
+//    NSFileManager *m = [NSFileManager defaultManager];
+//    [m createFileAtPath:filePath contents:xmlData attributes:nil];
     
     return filePath;
 }

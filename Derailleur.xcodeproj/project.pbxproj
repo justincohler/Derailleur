@@ -49,6 +49,7 @@
 		B5085FEE24636DE40041A5DF /* StatusDot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatusDot.m; sourceTree = "<group>"; };
 		B5085FF0246395A40041A5DF /* BikeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BikeData.m; sourceTree = "<group>"; };
 		CC70F1CA9A610887BEF60BDA /* Pods_Derailleur.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Derailleur.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE2610522512CCDB003925DA /* DerailleurRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DerailleurRelease.entitlements; sourceTree = "<group>"; };
 		DE2DE52825066C7F0021A8E3 /* TrackPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackPoint.h; sourceTree = "<group>"; };
 		DE2DE52925066F770021A8E3 /* TrackPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackPoint.m; sourceTree = "<group>"; };
 		DEC6FB8325084524008C2672 /* NSData+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Extensions.m"; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		B5085FC9246253510041A5DF /* Derailleur */ = {
 			isa = PBXGroup;
 			children = (
+				DE2610522512CCDB003925DA /* DerailleurRelease.entitlements */,
 				DE2DE5242506591E0021A8E3 /* TCX */,
 				B5085FE724634D130041A5DF /* Bluetooth */,
 				B5085FDF246287700041A5DF /* Extensions */,
@@ -201,7 +203,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1170;
-				ORGANIZATIONNAME = Benwithjamin;
+				ORGANIZATIONNAME = Derailleur;
 				TargetAttributes = {
 					B5085FC6246253510041A5DF = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -424,7 +426,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benwithjamin.derailleur;
+				PRODUCT_BUNDLE_IDENTIFIER = Derailleur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -434,7 +436,7 @@
 			baseConfigurationReference = B267B1CCD5346969C07E7989 /* Pods-Derailleur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Derailleur/Derailleur.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Derailleur/DerailleurRelease.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -447,7 +449,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benwithjamin.derailleur;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = Derailleur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
